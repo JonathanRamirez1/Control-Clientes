@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head th:replace="layout/plantilla :: head">
+        <title>Inicio</title>
+    </head>
+    <body>
+
+        <header th:replace="layout/plantilla :: header"></header>
+        <section th:replace="layout/buttonAdd :: buttonAdd"></section>
+        <section th:replace="layout/addClient :: addClient"></section>
+        <section th:replace="layout/listClient :: listClient"></section>
+        <footer th:replace="layout/plantilla :: footer"></footer>
+
+    </body>
+</html>

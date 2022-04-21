@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="layout/plantilla :: head">
+        <title>[[#{person.data}]]</title>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+        <header th:replace="layout/plantilla :: header"></header>
+        <section th:replace="layout/editClient :: editClient"></section>
+        <footer th:replace="layout/plantilla :: footer"></footer>
+
+    </body>
+</html>
