@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Listado Clientes</title>
+</head>
+<body>
+<section th:fragment="listClient" id="clients">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>[[#{person.title-list}]]</h4>
+                    </div>
+                    <div th:if="${persons != null and !persons.empty}">
+                        <table class="table table-stryped">
+                            <thead class="thead-dark">
+                            <tr>
+                                <th>#</th>
+                                <th th:text="#{person.name}">Nombre</th>
+                                <th th:text="#{person.amount}">Saldo</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="person, counts : ${persons}">
+                                <td>[[${counts.count}]]</td>
+                                <td>[[${person.name} + ' ' + ${person.lastName}]]</td>
+                                <td>[[${new java.text.DecimalFormat('$#,##0.00').format(person.amount)}]]</td>
+                                <td>
+                                    <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/edit/} + ${person.idPerson}"
+                                    class="btn btn-secondary">
+                                        <i class="fas fa-angle-double-right"></i> [[#{action.edit}]]
+                                    </a>
+                                </td>
+                                <td>
+                                    <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/delete(idPerson=${person.idPerson})}"
+                                       class="btn btn-dark">
+                                        <i class="fas fa-angle-double-right"></i> [[#{action.delete}]]
+                                    </a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="text-center p-2" th:if="${persons == null or persons.empty}">
+                        <span th:text="#{person.listEmpty}">Lista vacia</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card text-center bg-danger text-white mb-3">
+                    <div class="card-body">
+                        <h3 th:text="#{person.amountTotal}">Saldo Total</h3>
+                        <h4 class="display-4">
+                            [[${new java.text.DecimalFormat('$#,##0.00').format(amountTotal)}]]
+                        </h4>
+                    </div>
+                </div>
+
+                <div class="card text-center bg-success text-white mb-3">
+                    <div class="card-body">
+                        <h3 th:text="#{person.totalClients}">Total Clientes</h3>
+                        <h4 class="display-4">
+                            <i class="fas fa-users"></i> [[${totalClients}]]
+                        </h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>
